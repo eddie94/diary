@@ -37,6 +37,7 @@ def wallpaper():
     heart()
     print("\n")
     print("press 'a'to rewrite diary")
+    print("press 'r' to read diary")
     print("press 'w'to write your diary\t\t\tpress ctrl+c to quit")
     print("="*80)
 
@@ -52,7 +53,7 @@ def search(dir_name):
         pass
 
 
-def diary_add():
+def diary_add(directory):
     cnt=0
     print("WHICH FILE ARE YOU GONNA WRITE?")
     search(directory)
@@ -81,6 +82,9 @@ def diary_add():
         f.close()
         os.system(exit())
 
+def diary_read():
+    pass
+
 
 date=datetime.date.today()
 
@@ -92,15 +96,18 @@ file_path=dir_name+file_name
 
 file_list=[]
 
-wallpaper()
-mode=input()
-
 while True:
+    wallpaper()
+    mode=input()
+
     if mode=="w":
         os.system('cls')
         diary_write(file_path)
     elif mode=='a':
         os.system('cls')
-        diary_add()
+        diary_add(dir_name)
+    elif mode == 'r':
+        os.system('cls')
+        diary_read()
     else:
         print("error")
