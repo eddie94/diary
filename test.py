@@ -8,19 +8,25 @@ def heart():
         b'\x1f\x8b\x08\x00\x95\x10\xe0R\x02\xffSPP\xf0\xc9/KU\x80\x03\x10\x8f\x0bB\xa1c.l\x82dJ\xe0\xb0\x01\xe6\x02\x0cATa.T\xf7\x02\x00\xd9\x91g\x05\xc5\x00\x00\x00').decode(
         'ascii'))
 
-def diary_write():
+def diary_write(file_path):
+
+    write_done = False
+    
     line="THIS IS THE WRITE MODE"
     print("-"*80)
     c=line.center(80,'#')
     print(c)
     print("-"*80)
     testfile=open(file_path,'w')
-    try:
-        while True:
-            data=sys.stdin.readline()
-            testfile.write(data)
-    except KeyboardInterrupt:
+
+    while not write_done:
+        try:
+            line = sys.stdin.readline()
+            testfile.write(line)
+        except KeyboardInterrupt:
             testfile.close()
+            write_done = True
+        
 
 def wallpaper():
     line="THE BEST DIARY EVER"
@@ -78,19 +84,12 @@ def diary_add():
 
 date=datetime.date.today()
 
-global directory
-dir_name="C:/Users/이종민/Desktop/python/"
-directory=dir_name
+dir_name=""
 
-global file_name
-name=str(date)+'.txt'
-file_name=name
+file_name=str(date)+'.txt'
 
-global file_path
-path=dir_name+name
-file_path=path
+file_path=dir_name+file_name
 
-global file_list
 file_list=[]
 
 wallpaper()
@@ -99,7 +98,7 @@ mode=input()
 while True:
     if mode=="w":
         os.system('cls')
-        diary_write()
+        diary_write(file_path)
     elif mode=='a':
         os.system('cls')
         diary_add()
