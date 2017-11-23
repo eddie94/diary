@@ -51,6 +51,7 @@ def search(dir_name):
                 file_list.append(filename)
     except PermissionError:
         pass
+    return file_list
 
 
 def diary_add(directory):
@@ -82,15 +83,49 @@ def diary_add(directory):
         f.close()
         os.system(exit())
 
-def diary_read():
-    pass
+def diary_read(directory):
+
+    file_list = search(dir_name)
+
+    line="THIS IS THE READ MODE \nWHICH ARE YOU GONNA READ?"
+    print("-"*80)
+    c=line.center(80,'#')
+    print(c)
+    print("-"*80)
+
+    for i in range(len(file_list)):
+        print("%d.%s" %(i+1, file_list[i]))
+
+    select_done = False
+
+    while not select_done:
+        index = int(input())
+        if index >= 1 and index <= len(file_list)+1:
+            select_done = True
+        else:
+            print("error")
+
+    f=open(file_list[index-1])
+
+    while True:
+        line = f.readline()
+        print(line)
+        if not line :
+            break
+    f.close
+
+    print("press enter to leave")
+
+    end = input()
+
+    
 
 
 date=datetime.date.today()
 
-dir_name=""
+dir_name="D:/학업자료/pycharm/diary/diary"
 
-file_name=str(date)+'.txt'
+file_name='/' + str(date)+'.txt'
 
 file_path=dir_name+file_name
 
@@ -108,6 +143,6 @@ while True:
         diary_add(dir_name)
     elif mode == 'r':
         os.system('cls')
-        diary_read()
+        diary_read(dir_name)
     else:
         print("error")
