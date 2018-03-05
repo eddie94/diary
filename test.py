@@ -18,7 +18,8 @@ def diary_write(file_path):
     print(c)
     print("-"*80)
     testfile=open(file_path,'w')
-
+    a = input()
+    '''
     while not write_done:
         try:
             line = sys.stdin.readline()
@@ -26,6 +27,14 @@ def diary_write(file_path):
         except KeyboardInterrupt:
             testfile.close()
             write_done = True
+    '''
+    with open(file_path, 'w') as f:
+        while not write_done:
+            try:
+                line = sys.stdin.readline()
+                f.write(line)
+            except KeyboardInterrupt:
+                write_done = True
         
 
 def wallpaper():
@@ -57,16 +66,17 @@ def search(dir_name):
 def diary_add(directory):
     cnt=0
     print("WHICH FILE ARE YOU GONNA WRITE?")
-    search(directory)
+    my_file = search(directory)
     for i in range(len(file_list)):
         print("%d." % (i+1) +file_list[i])
     a=int(input())
     for i in range(len(file_list)):
         if a==i+1:
-            my_file=directory+file_list[i]
+            my_file=directory + '/' +file_list[i]
         else:
             pass
     os.system('cls')
+    '''
     f=open(my_file,'r')
     while True:
         line=f.readline()
@@ -82,6 +92,21 @@ def diary_add(directory):
     except KeyboardInterrupt:
         f.close()
         os.system(exit())
+    '''
+    with open(my_file, 'r') as f:
+        while True:
+            line=f.readline()
+            if not line:
+                break
+            print(line)
+    with open(my_file, 'a') as f:
+        try:
+            while True:
+                data=sys.stdin.readline()
+                f.write(data)
+        except KeyboardInterrupt:
+            os.system(exit())
+        
 
 def diary_read(directory):
 
@@ -104,7 +129,7 @@ def diary_read(directory):
             select_done = True
         else:
             print("error")
-
+    '''
     f=open(file_list[index-1])
 
     while True:
@@ -113,7 +138,14 @@ def diary_read(directory):
         if not line :
             break
     f.close
-
+    '''
+    with open(file_list[index-1], 'r') as f:
+        while True:
+            line = f.readline()
+            print(line)
+            if not line :
+                break
+    
     print("press enter to leave")
 
     end = input()
@@ -123,7 +155,7 @@ def diary_read(directory):
 
 date=datetime.date.today()
 
-dir_name="D:/학업자료/pycharm/diary/diary"
+dir_name = "C:/Users/DB400T2A/Desktop/diary"
 
 file_name='/' + str(date)+'.txt'
 
